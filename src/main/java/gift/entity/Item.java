@@ -1,5 +1,4 @@
 package gift.entity;
-
 public class Item {
     private Long id;
     private String name;

@@ -3,7 +3,7 @@ package gift.controller;
 
 import gift.dto.ItemDTO;
 import gift.service.ItemService;
-import org.springframework.http.HttpEntity;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ public class ItemController {
 
     @PostMapping
     public ResponseEntity<ItemDTO> addItems(
-            @RequestBody ItemDTO dto
+            @RequestBody @Valid ItemDTO dto
     ) {
         ItemDTO item = itemService.saveItem(dto);
         return new ResponseEntity<>(item, HttpStatus.CREATED);
@@ -42,13 +42,13 @@ public class ItemController {
             @RequestParam(required = false) String name
     ) {
         itemService.delete(name);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ItemDTO> updateItems(
             @PathVariable Long id,
-            @RequestBody ItemDTO dto
+            @RequestBody @Valid ItemDTO dto
     ) {
         ItemDTO item = itemService.updateItem(id, dto);
         return  ResponseEntity.ok(item);
